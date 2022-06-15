@@ -1,1 +1,7 @@
-{}
+{
+    "d2a17e7.00b668": {
+        "user": "${MQTT_USER}",
+        "password": "${MQTT_PWD}"
+    },
+    "9ec473ef.e0678": {}
+}

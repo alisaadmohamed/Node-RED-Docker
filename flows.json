@@ -7,6 +7,51 @@
         "info": ""
     },
     {
+        "id": "d2a17e7.00b668",
+        "type": "mqtt-broker",
+        "name": "myBrokerConfig",
+        "broker": "${MQTT_HOST}",
+        "port": "${MQTT_PORT}",
+        "tls": "9ec473ef.e0678",
+        "clientid": "${MQTT_CLIENT_ID}",
+        "autoConnect": true,
+        "usetls": true,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "9ec473ef.e0678",
+        "type": "tls-config",
+        "name": "myTLSconfig",
+        "cert": "",
+        "key": "",
+        "ca": "${MQTT_CA_CERT}",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "${MQTT_HOST}",
+        "verifyservercert": true,
+        "alpnprotocol": ""
+    },
+    {
         "id": "5371bcc9ecff6d4f",
         "type": "inject",
         "z": "3af82246.3634ae",
@@ -25,9 +70,9 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 320,
+        "payload": "${WWW}",
+        "payloadType": "str",
+        "x": 340,
         "y": 220,
         "wires": [
             [
@@ -47,7 +92,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 570,
         "y": 220,
         "wires": []
     },
@@ -105,5 +150,105 @@
                 "c2380ca8.0463"
             ]
         ]
+    },
+    {
+        "id": "8381a5c3.3cbf9",
+        "type": "mqtt in",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "d2a17e7.00b668",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "ebab6856.8901c"
+            ]
+        ]
+    },
+    {
+        "id": "ebab6856.8901c",
+        "type": "debug",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 630,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "92d9d4a9.e5cf4",
+        "type": "inject",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 330,
+        "y": 340,
+        "wires": [
+            [
+                "fb7b0c12.eb2e48"
+            ]
+        ]
+    },
+    {
+        "id": "fb7b0c12.eb2e48",
+        "type": "change",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{ \"time\" : $fromMillis($toMillis($now()),'[H]:[m]:[s]') }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 360,
+        "wires": [
+            [
+                "d356084b.b81818"
+            ]
+        ]
+    },
+    {
+        "id": "d356084b.b81818",
+        "type": "mqtt out",
+        "z": "3af82246.3634ae",
+        "name": "",
+        "topic": "time",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d2a17e7.00b668",
+        "x": 650,
+        "y": 360,
+        "wires": []
     }
 ]
